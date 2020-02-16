@@ -1,13 +1,12 @@
 package com.libra.tmall.service;
- 
+
 import com.libra.tmall.dao.OrderItemDAO;
 import com.libra.tmall.pojo.Order;
 import com.libra.tmall.pojo.OrderItem;
 import com.libra.tmall.pojo.Product;
-import com.libra.tmall.pojo.ProductImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
- 
+
 import java.util.List;
  
 @Service

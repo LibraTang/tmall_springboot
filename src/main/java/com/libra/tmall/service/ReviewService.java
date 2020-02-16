@@ -1,16 +1,12 @@
 package com.libra.tmall.service;
- 
-import java.util.List;
- 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
- 
+
 import com.libra.tmall.dao.ReviewDAO;
 import com.libra.tmall.pojo.Product;
 import com.libra.tmall.pojo.Review;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
  
 @Service
 public class ReviewService {

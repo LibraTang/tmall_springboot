@@ -1,8 +1,7 @@
 package com.libra.tmall.service;
- 
+
 import com.libra.tmall.dao.ProductDAO;
 import com.libra.tmall.pojo.Category;
-import com.libra.tmall.pojo.OrderItem;
 import com.libra.tmall.pojo.Product;
 import com.libra.tmall.util.Page4Navigator;
 import org.springframework.beans.factory.annotation.Autowired;

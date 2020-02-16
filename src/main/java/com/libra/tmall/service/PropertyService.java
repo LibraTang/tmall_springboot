@@ -1,21 +1,17 @@
 package com.libra.tmall.service;
- 
-import java.util.List;
- 
+
+import com.libra.tmall.dao.PropertyDAO;
+import com.libra.tmall.pojo.Category;
+import com.libra.tmall.pojo.Property;
+import com.libra.tmall.util.Page4Navigator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
- 
-import com.libra.tmall.dao.PropertyDAO;
-import com.libra.tmall.pojo.Category;
-import com.libra.tmall.pojo.Property;
-import com.libra.tmall.util.Page4Navigator;
+
+import java.util.List;
  
 @Service
 public class PropertyService {
