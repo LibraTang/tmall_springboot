@@ -94,4 +94,11 @@ public class ProductService  {
         for (Product product : products)
             setSaleAndReviewNumber(product);
     }
+
+    public List<Product> search(String keyword, int start, int size) {
+        Sort sort = new Sort(Sort.DEFAULT_DIRECTION.DESC, "id");
+        Pageable pageable = new PageRequest(start, size, sort);
+        List<Product> ps = productDAO.findByNameLike("%"+keyword+"%", pageable);
+        return ps;
+    }
 }
