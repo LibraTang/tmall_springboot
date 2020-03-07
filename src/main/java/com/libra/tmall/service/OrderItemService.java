@@ -4,6 +4,7 @@ import com.libra.tmall.dao.OrderItemDAO;
 import com.libra.tmall.pojo.Order;
 import com.libra.tmall.pojo.OrderItem;
 import com.libra.tmall.pojo.Product;
+import com.libra.tmall.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,18 @@ public class OrderItemService {
     OrderItemDAO orderItemDAO;
     @Autowired
     ProductImageService productImageService;
+
+    public void add(OrderItem bean) {
+        orderItemDAO.save(bean);
+    }
+
+    public OrderItem get(int id) {
+        return orderItemDAO.findOne(id);
+    }
+
+    public void update(OrderItem bean) {
+        orderItemDAO.save(bean);
+    }
  
     public void fill(List<Order> orders) {
         for (Order order : orders)
@@ -53,5 +66,9 @@ public class OrderItemService {
 
     public List<OrderItem> listByOrder(Order order) {
         return orderItemDAO.findByOrderOrderByIdDesc(order);
+    }
+
+    public List<OrderItem> listByUser(User user) {
+        return orderItemDAO.findByUserAndOrderIsNull(user);
     }
 }

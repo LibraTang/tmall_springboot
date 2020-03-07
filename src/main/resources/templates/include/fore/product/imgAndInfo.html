@@ -61,7 +61,7 @@
                         var pid = vue.p.id;
                         var num= $(".productNumberSetting").val();
                         var url =  "forebuyone?pid="+pid+"&num="+num;
-                        axios.get(url).then(function(response) {
+                        axios.post(url).then(function(response) {
                             var oiid = response.data;
                             location.href="buy?oiid="+oiid;
                         });

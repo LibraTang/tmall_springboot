@@ -11,10 +11,7 @@ import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpSession;
 import javax.swing.*;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class ForeRESTController {
@@ -30,6 +27,8 @@ public class ForeRESTController {
     PropertyValueService propertyValueService;
     @Autowired
     ReviewService reviewService;
+    @Autowired
+    OrderItemService orderItemService;
  
     @GetMapping("/forehome")
     public Object home() {
@@ -146,5 +145,62 @@ public class ForeRESTController {
         productImageService.setFirstProductImages(ps);
         productService.setSaleAndReviewNumber(ps);
         return ps;
+    }
+
+    @PostMapping("/forebuyone")
+    public Object buyone(int pid, int num, HttpSession session) {
+        return buyoneAndAddCart(pid, num, session);
+    }
+
+    @PostMapping("/forebuy")
+    public Object buy(String[] oiid, HttpSession session) {
+        List<OrderItem> ois = new ArrayList<>();
+        double total = 0;
+
+        for(String strId : oiid) {
+            int id = Integer.parseInt(strId);
+            OrderItem oi = orderItemService.get(id);
+            total += oi.getProduct().getPromotePrice() * oi.getNumber();
+            ois.add(oi);
+        }
+
+        productImageService.setFirstProductImagesOnOrderItems(ois);
+
+        session.setAttribute("ois", ois);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("orderItems", ois);
+        map.put("total", total);
+        return Result.success(map);
+    }
+
+    private int buyoneAndAddCart(int pid, int num, HttpSession session) {
+        Product p = productService.get(pid);
+        int oiid = 0;
+
+        //查找用户当前订单项中是否有相同的商品
+        User user = (User) session.getAttribute("user");
+        boolean found = false;
+        List<OrderItem> ois = orderItemService.listByUser(user);
+        for(OrderItem oi : ois) {
+            if(oi.getProduct().getId() == p.getId()) {
+                oi.setNumber(oi.getNumber() + num);
+                orderItemService.update(oi);
+                found = true;
+                oiid = oi.getId();
+                break;
+            }
+        }
+
+        if(!found) {
+            OrderItem oi = new OrderItem();
+            oi.setUser(user);
+            oi.setNumber(num);
+            oi.setProduct(p);
+            orderItemService.add(oi);
+            oiid = oi.getId();
+        }
+
+        return oiid;
     }
 }
