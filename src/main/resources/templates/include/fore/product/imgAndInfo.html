@@ -38,7 +38,7 @@
                         var pid = vue.p.id;
                         var num= $(".productNumberSetting").val();
                         var url =  "foreaddCart?pid="+pid+"&num="+num;
-                        axios.get(url).then(function(response) {
+                        axios.post(url).then(function(response) {
                             var result = response.data;
                             if(0==result.code){
                                 $(".addCartButton").html("已加入购物车");

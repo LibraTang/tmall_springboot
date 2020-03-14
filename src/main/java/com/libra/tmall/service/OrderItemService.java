@@ -28,6 +28,10 @@ public class OrderItemService {
     public void update(OrderItem bean) {
         orderItemDAO.save(bean);
     }
+
+    public void delete(int id) {
+        orderItemDAO.delete(id);
+    }
  
     public void fill(List<Order> orders) {
         for (Order order : orders)
